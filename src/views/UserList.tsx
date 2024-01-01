@@ -24,14 +24,16 @@ export default function UserList(props: any) {
     return (
       <ListItem bottomDivider>
         <Avatar source={{uri: item.avatarUrl}} />
+
         <ListItem.Content>
           <ListItem.Title>{item.name}</ListItem.Title>
           <ListItem.Subtitle>{item.email}</ListItem.Subtitle>
         </ListItem.Content>
+
         <Button
           type="clear"
           icon={<Icon name="edit" size={25} color="orange" />}
-          onPress={() => props.navigation.navigate('UserForm')}
+          onPress={() => props.navigation.navigate('UserForm', item)}
         />
         <Button
           type="clear"
