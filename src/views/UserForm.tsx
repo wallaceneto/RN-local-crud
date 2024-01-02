@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+
+import UsersContext from '../context/UsersContext';
 
 export default function UserForm(props: any) {
   const [user, setUser] = useState(
     props.route.params ? props.route.params : {},
   );
+  const {dispatch}: any = useContext(UsersContext);
 
   return (
     <View style={styles.form}>
@@ -32,7 +35,16 @@ export default function UserForm(props: any) {
         onChangeText={avatarUrl => setUser({...user, avatarUrl})}
       />
 
-      <Button title="Salvar" onPress={() => props.navigation.goBack()} />
+      <Button
+        title="Salvar"
+        onPress={() => {
+          dispatch({
+            type: user.id ? 'UPDATE_USER' : 'CREATE_USER',
+            payload: user,
+          });
+          props.navigation.goBack();
+        }}
+      />
     </View>
   );
 }
